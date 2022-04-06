@@ -1,0 +1,16 @@
+﻿[*.cs]
+
+# CS8618: Un champ non-nullable doit contenir une valeur non-null lors de la fermeture du constructeur. Envisagez de déclarer le champ comme nullable.
+dotnet_diagnostic.CS8618.severity = none
+
+# CS8601: Existence possible d'une assignation de référence null.
+dotnet_diagnostic.CS8601.severity = none
+
+# CS8600: Conversion de littéral ayant une valeur null ou d'une éventuelle valeur null en type non-nullable.
+dotnet_diagnostic.CS8600.severity = none
+
+# CS8605: Conversion unboxing d'une valeur peut-être null.
+dotnet_diagnostic.CS8605.severity = none
+
+# IDE0059: Assignation inutile d'une valeur
+dotnet_diagnostic.IDE0059.severity = none
