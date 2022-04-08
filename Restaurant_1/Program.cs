@@ -34,7 +34,29 @@ namespace InterfaceConsole
                 {
                     #region 1.Ajouter une personne à la liste
                     case 1:
-                        Reservation NouvelleReservation = _bdd.AjouterReservation("Doe");
+
+                        Reservation NouvelleReservation = _bdd.AjouterReservation("Doe John");
+
+                        NouvelleReservation.NomPrenom = Lire.UnString("Veuillez entrer un nom et un prénom :");
+                        NouvelleReservation.NombrePersonnes = Lire.UnByte("Veuillez entrer le nombre de personne");
+
+                        NouvelleReservation.DateReservation = Lire.UnDateTime("Veuillez entrer la date et l'heure format(jj/mm/aa hh:mm) :");
+                        
+                        NouvelleReservation.Zone = Lire.UnEnumere<Zones>();
+                        Lire.WhileTryCatch(() => { NouvelleReservation.NumeroTelephone = Lire.UnString("Veuillez entrer un numéro de téléphone :"); });
+                        Lire.WhileTryCatch(() => { NouvelleReservation.Email = Lire.UnString("Veuillez entrer un mail :"); });
+                        Lire.WhileTryCatch(() => { NouvelleReservation.NombreFetiche = Lire.UnByte("Veuillez entrer votre nombre fétiche :", Reservation.NombreFeticheMIN, Reservation.NombreFeticheMAX); });
+
+                        _bdd.SauvegarderModifications();
+
+
+
+
+
+
+
+
+                      /*  Reservation NouvelleReservation = _bdd.AjouterReservation("Doe");
 
                         Console.WriteLine("Veuillez entrer un nom et un prénom :");
                         NouvelleReservation.NomPrenom = Console.ReadLine();
@@ -65,7 +87,7 @@ namespace InterfaceConsole
                         {
                             Console.WriteLine($"Erreur, veuillez entrer une date correcte:");
                         }
-                        NouvelleReservation.DateHeure = _resultdate;
+                        NouvelleReservation.DateReservation = _resultdate;
 
 
 
@@ -113,7 +135,7 @@ namespace InterfaceConsole
                             }
                         }
 
-                        _bdd.SauvegarderModifications();
+                        _bdd.SauvegarderModifications();*/
                         break;
                     #endregion
                     #region 2.Enlever une personne de la liste
@@ -140,6 +162,7 @@ namespace InterfaceConsole
                     #endregion
                     #region 3.Afficher la liste
                     case 3:
+                        Console.WriteLine(Reservation.DetailsEntetes);
                         foreach (Reservation p in ListeReservations) { Console.WriteLine($"{p.Details}"); }
                         Console.WriteLine("");
                         break;
@@ -149,4 +172,3 @@ namespace InterfaceConsole
         }
     }
 }
-

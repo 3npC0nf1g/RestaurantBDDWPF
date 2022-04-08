@@ -27,7 +27,7 @@ namespace BibliRestaurant
 
         #region Méthodes permettant d'ajouter/d'enlever des données dans les tables de la BDD
         //Le ? vérifie que la base de données existe bien en mémoire, ce qui permet d'éviter une exception si ce n'est pas le cas.
-        public Reservation AjouterReservation(string NomPrenom) { return BDD?.AjouterReservation(NomPrenom); }
+        public Reservation AjouterReservation(string nomprenom) { return BDD?.AjouterReservation(nomprenom); }
         public void SupprimerReservation(Reservation reservation) { BDD?.SupprimerReservation(reservation); }
         #endregion
 
@@ -52,7 +52,7 @@ namespace BibliRestaurant
 
             //Création de la ReadOnlyObservableCollection permet de travailler avec la table dans un format adapté à un projet WPF
             //Le terme Local permet de travailler avec les données temporaires non encore sauvegardées dans la bdd.
-           Reservations = new ReadOnlyObservableCollection<Reservation>(BDD?.Reservations.Local.ToObservableCollection());
+            Reservations = new ReadOnlyObservableCollection<Reservation>(BDD?.Reservations.Local.ToObservableCollection());
         }
         public void SauvegarderModifications() { BDD?.SaveChanges(); }
         #endregion
