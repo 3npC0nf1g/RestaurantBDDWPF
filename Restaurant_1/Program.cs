@@ -11,8 +11,7 @@ namespace InterfaceConsole
             byte Choix = 0;
 
 
-            //BDD
-            //Attention : l'ordre des 3 lignes suivantes est important
+          
             BDDSingleton _bdd = BDDSingleton.Instance;
             _bdd.ChargerDonnees();
             ReadOnlyObservableCollection<Reservation> ListeReservations = _bdd.Reservations;
@@ -21,32 +20,27 @@ namespace InterfaceConsole
             {
                 Console.WriteLine("1.Ajouter une réservation à la liste.");
                 Console.WriteLine("2.Enlever une réservation de la liste.");
-                Console.WriteLine("3.Afficher la liste.");
-                Console.WriteLine("4.Quitter\n");
-
-                Console.WriteLine("Veuillez faire un choix :");
-                while (!byte.TryParse(Console.ReadLine(), out Choix) || Choix < 1 || Choix > 4)
-                {
-                    Console.WriteLine($"Erreur, le nombre doit être compris entre 1 et 4, veuillez recommencer :");
-                }
+                Console.WriteLine("3.Afficher la liste triée... ");
+                Console.WriteLine("4.Afficher uniquement...");
+                Console.WriteLine("5.Quitter\n");
+                Choix = Lire.UnByte("Veuillez faire un choix :", 1, 5, true);
 
                 switch (Choix)
                 {
                     #region 1.Ajouter une personne à la liste
                     case 1:
-
                         Reservation NouvelleReservation = _bdd.AjouterReservation("Doe John");
-
                         NouvelleReservation.NomPrenom = Lire.UnString("Veuillez entrer un nom et un prénom :");
-                        NouvelleReservation.NombrePersonnes = Lire.UnByte("Veuillez entrer le nombre de personne");
-
-                        NouvelleReservation.DateReservation = Lire.UnDateTime("Veuillez entrer la date et l'heure format(jj/mm/aa hh:mm) :");
-                        
-                        NouvelleReservation.Zone = Lire.UnEnumere<Zones>();
+                        NouvelleReservation.DateReservation = Lire.UnDateTime("Veuillez entrer la date et l'heure  :");
+                        NouvelleReservation.ZoneRestaurant = Lire.UnEnumere<Zones>();
+                        NouvelleReservation.TypeDeMenu = Lire.UnEnumere<TypePlat>();
+                        NouvelleReservation.ChoixDuDécor = Lire.UnEnumere<Décor>();
                         Lire.WhileTryCatch(() => { NouvelleReservation.NumeroTelephone = Lire.UnString("Veuillez entrer un numéro de téléphone :"); });
+                        Lire.WhileTryCatch(() => { NouvelleReservation.Adresse = Lire.UnString("Veuillez entrer une adresse :"); });
                         Lire.WhileTryCatch(() => { NouvelleReservation.Email = Lire.UnString("Veuillez entrer un mail :"); });
-                        Lire.WhileTryCatch(() => { NouvelleReservation.NombreFetiche = Lire.UnByte("Veuillez entrer votre nombre fétiche :", Reservation.NombreFeticheMIN, Reservation.NombreFeticheMAX); });
-
+                        Lire.WhileTryCatch(() => { NouvelleReservation.NuméroTable = Lire.UnByte("Veuillez entrer votre numéro de table :", Reservation.NuméroTableMIN, Reservation.NuméroTableMAX); });
+                        Lire.WhileTryCatch(() => { NouvelleReservation.PlaceParking = Lire.UnByte("Veuillez entrer votre place de parking :", Reservation.PlaceParkingMIN, Reservation.PlaceParkingMAX); });
+                        Lire.WhileTryCatch(() => { NouvelleReservation.NombrePersonnes = Lire.UnByte("Veuillez entrer le nombre personnes :", Reservation.NombrePersonnesMIN, Reservation.NombrePersonnesMAX); });
                         _bdd.SauvegarderModifications();
 
 
@@ -55,87 +49,6 @@ namespace InterfaceConsole
 
 
 
-
-                      /*  Reservation NouvelleReservation = _bdd.AjouterReservation("Doe");
-
-                        Console.WriteLine("Veuillez entrer un nom et un prénom :");
-                        NouvelleReservation.NomPrenom = Console.ReadLine();
-                        while (NouvelleReservation.NomPrenom == string.Empty)
-                        {
-                            Console.WriteLine($"Erreur, il faut un nom, veuillez recommencer :");
-                            NouvelleReservation.NomPrenom = Console.ReadLine();
-                        }
-
-                        byte _resultatNbre_prsns = 0;
-                        Console.WriteLine("Veuillez entrer le nombre de personne :");
-                        byte.TryParse(Console.ReadLine(), out _resultatNbre_prsns);
-                        while (_resultatNbre_prsns < 1 || _resultatNbre_prsns > 8)
-                        {
-                            Console.WriteLine($"Erreur, le nombre de personnes doit être compris entre 1 et 8, veuillez recommencer :");
-                            byte.TryParse(Console.ReadLine(), out _resultatNbre_prsns);
-                        }
-                        NouvelleReservation.NombrePersonnes = _resultatNbre_prsns;
-
-
-
-                        DateTime _resultdate = DateTime.Now;
-
-
-                        Console.WriteLine("Veuillez entrer la date et l'heure format(jj/mm/aa hh:mm) :");
-
-                        while (!DateTime.TryParse(Console.ReadLine(), out _resultdate))
-                        {
-                            Console.WriteLine($"Erreur, veuillez entrer une date correcte:");
-                        }
-                        NouvelleReservation.DateReservation = _resultdate;
-
-
-
-                        Zones _resultatZone = (Zones)Enum.GetValues(typeof(Zones)).GetValue(0);
-                        Console.WriteLine("Veuillez faire un choix parmi la liste suivante :");
-
-                        foreach (Zones Zone in Enum.GetValues(typeof(Zones))) { Console.WriteLine($"{Zone:D}.{Zone.GetDescription()}"); }
-
-                        while (!Enum.TryParse(Console.ReadLine(), out _resultatZone) || !Enum.IsDefined(typeof(Zones), _resultatZone))
-                        {
-                            Console.WriteLine("Valeur erronnée, veuillez recommencer :");
-                        }
-
-                        NouvelleReservation.Zone = _resultatZone;
-
-                        bool lErreurMail = true;
-                        while (lErreurMail)
-                        {
-                            lErreurMail = false;
-                            try
-                            {
-                                Console.WriteLine("Veuillez entrer l’email :");
-                                NouvelleReservation.Email = Console.ReadLine();
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                                lErreurMail = true;
-                            }
-                        }
-
-                        bool lErreurNumeroTelephone = true;
-                        while (lErreurNumeroTelephone)
-                        {
-                            lErreurNumeroTelephone = false;
-                            try
-                            {
-                                Console.WriteLine("Veuillez entrer le numéro de téléphone :");
-                                NouvelleReservation.NumeroTelephone = Console.ReadLine();
-                            }
-                            catch (Exception ex)
-                            {
-                                Console.WriteLine(ex.Message);
-                                lErreurNumeroTelephone = true;
-                            }
-                        }
-
-                        _bdd.SauvegarderModifications();*/
                         break;
                     #endregion
                     #region 2.Enlever une personne de la liste
@@ -144,11 +57,9 @@ namespace InterfaceConsole
                         {
                             byte _aEnlever = 0;
 
-                            //Execute le code pour chaque personne dans la liste.
-                            //Contrairement à un for il n'y a pas de compteur.
-                            //IndexOf : renvoie l'indice de l'objet dans la liste.
+                           
                             foreach (Reservation p in ListeReservations) { Console.WriteLine($"{ListeReservations.IndexOf(p)} : {p.Details}."); }
-                            //Un objet de la liste est enlevé sur base de sa position.
+                           
                             Console.WriteLine("Veuillez faire un choix :");
                             while (!byte.TryParse(Console.ReadLine(), out _aEnlever) || _aEnlever < 0 || _aEnlever > ListeReservations.Count - 1)
                             {
@@ -160,15 +71,65 @@ namespace InterfaceConsole
                         else { Console.WriteLine("Liste vide, rien à supprimer."); }
                         break;
                     #endregion
-                    #region 3.Afficher la liste
+                    #region 3.Afficher la liste triée...
                     case 3:
+                        Console.WriteLine("Veuillez faire un choix parmi les tris suivants :");
+                        Console.WriteLine("1.Par défaut.");
+                        Console.WriteLine("2.Par Jours Restants croissant.");
+                        Console.WriteLine("3.Par Jours Restants décroissant.");
+                        Console.WriteLine("4.Par nom (A -> Z).");
+                        Console.WriteLine("5.Par nom (Z -> A).");
+
+                        IEnumerable<Reservation> ListeTriee = Lire.UnByte("Veuillez entrer une valeur entre 1 et 5", 1, 5) switch
+                        {
+                            1 => ListeReservations.OrderBy(x => x), 
+                            2 => ListeReservations.OrderBy(x => x.TpsRestant),
+                            3 => ListeReservations.OrderByDescending(x => x.TpsRestant),
+                            4 => ListeReservations.OrderBy(x => x.NomPrenom),
+                            5 => ListeReservations.OrderByDescending(x => x.NomPrenom),
+                            _ => ListeReservations.OrderBy(x => x),  
+                        };
+
                         Console.WriteLine(Reservation.DetailsEntetes);
-                        foreach (Reservation p in ListeReservations) { Console.WriteLine($"{p.Details}"); }
+                        foreach (Reservation r in ListeTriee) { Console.WriteLine($"{r}"); }
+                        Console.WriteLine("");
+                        break;
+                    #endregion
+
+
+
+                    #region 4.Afficher uniquement...
+                    case 4:
+                        Console.WriteLine("1.Par Nombre De Personnes.");
+                        Console.WriteLine("2.Par Jours Restants.");
+                        Console.WriteLine("3.Par Zone.");
+
+                        IEnumerable<Reservation> ListeFiltree = ListeReservations;
+                        switch (Lire.UnByte("Veuillez faire un choix :", 1, 3))
+                        {
+                            case 1:
+                                byte NombreMIN = Lire.UnByte("Nombre minimum :");
+                                byte NombreMAX = Lire.UnByte("Nombre maximum :", NombreMIN);
+                                ListeFiltree = ListeReservations.Where(x => x.NombrePersonnes >= NombreMIN && x.NombrePersonnes <= NombreMAX).OrderBy(x => x);
+                                break;
+                            case 2:
+                                byte JourMIN = Lire.UnByte("jours minimum restants :");
+                                byte JourMAX = Lire.UnByte("jours maximum restants:", JourMIN);
+                                ListeFiltree = ListeReservations.Where(x => x.TpsRestant >= JourMIN && x.TpsRestant <= JourMAX).OrderBy(x => x);
+                                break;
+                            case 3:
+                                Zones Zone = Lire.UnEnumere<Zones>();
+                                ListeFiltree = ListeReservations.Where(x => x.ZoneRestaurant == Zone).OrderBy(x => x);
+                                break;
+                        }
+
+                        Console.WriteLine(Reservation.DetailsEntetes);
+                        foreach (Reservation r in ListeFiltree) { Console.WriteLine($"{r}"); }
                         Console.WriteLine("");
                         break;
                         #endregion
                 }
-            } while (Choix != 4);
+            } while (Choix != 5);
         }
     }
 }

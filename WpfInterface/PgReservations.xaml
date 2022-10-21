@@ -1,0 +1,228 @@
+﻿<Page x:Class="WpfInterface.PgReservations"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:WpfInterface"
+      xmlns:ref="clr-namespace:BibliRestaurant;assembly=BibliRestaurant"
+      xmlns:sys="clr-namespace:System;assembly=System.Runtime"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="1000"
+      Title="PgReservations">
+
+    <Page.Resources>
+        <ObjectDataProvider x:Key="listeZones" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ref:Zones"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="listeDecor" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ref:Décor"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+        <ObjectDataProvider x:Key="listeTypePlat" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
+            <ObjectDataProvider.MethodParameters>
+                <x:Type TypeName="ref:TypePlat"/>
+            </ObjectDataProvider.MethodParameters>
+        </ObjectDataProvider>
+
+
+        <local:EnumConverter x:Key="objEnumConverter" />
+
+
+        <Style x:Key="txtInError" TargetType="TextBox">
+            <Style.Triggers>
+                <Trigger Property="Validation.HasError" Value="true">
+                    <Setter Property="ToolTip"
+              Value="{Binding RelativeSource={x:Static RelativeSource.Self},
+              Path=(Validation.Errors)[0].ErrorContent}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+    </Page.Resources>
+    <Grid>
+        <GroupBox Name="grpListeReservations" Header="Liste des reservations" Margin="5">
+            <Grid>
+                <ListView  Name="lvReservations" ItemsSource="{Binding}" SelectionMode="Single" Margin="1">
+                    <ListView.Resources>
+                        <ContextMenu x:Key="ctxOnItem">
+                            <MenuItem Header="Supprimer la reservation sélectionnée" Click="SupprimerReservation"/>
+                            <MenuItem Header="Ajouter une réservation" Click="AjouterReservation"/>
+                            <MenuItem Header="Afficher...">
+                                <MenuItem Header="Toutes les données" Click="OnFiltrerAucunFiltre"/>
+                                <MenuItem Header="les réservations avec plus de 2 personnes"  Click="OnFiltrerPlusDe2Personnes"/>
+                                <MenuItem Header="les réservations par zones" Click="OnFiltrerParZoneTerasse"/>
+                                <MenuItem Header="les réservations pour les plats africains" Click="OnFiltrerParTypeDePlatAfricain"/>
+                               <!-- <MenuItem Header="les réservations du mois à venir"  Click="OnFiltrerLeMoisSuivant"/> -->
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.Resources>
+                    <ListView.ItemContainerStyle>
+                        <Style TargetType="{x:Type ListViewItem}">
+                            <Setter Property="ContextMenu" Value="{StaticResource ctxOnItem}"/>
+                        </Style>
+                    </ListView.ItemContainerStyle>
+                    <ListView.ContextMenu>
+                        <ContextMenu>
+                            <MenuItem Header="Ajouter une réservation" Click="AjouterReservation"/>
+                            <MenuItem Header="Afficher...">
+                                <MenuItem Header="Toutes les données" Click="OnFiltrerAucunFiltre"/>
+                                <MenuItem Header="les réservations avec plus de 2 personnes"  Click="OnFiltrerPlusDe2Personnes"/>
+                                <MenuItem Header="les réservations pour la térasse" Click="OnFiltrerParZoneTerasse"/>
+                                <MenuItem Header="les réservations pour les plats africains" Click="OnFiltrerParTypeDePlatAfricain"/>
+                              <!--  <MenuItem Header="les réservations du mois à venir"  Click="OnFiltrerLeMoisSuivant"/> -->
+                            </MenuItem>
+                        </ContextMenu>
+                    </ListView.ContextMenu>
+
+                    
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Nom et Prénom" Tag="NomPrenom" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding NomPrenom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+                            
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Nombre" Tag="Nombre" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Date et heure" Tag="DateNaissance" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <DatePicker SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Jours restants" Tag="TpsRestant" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding TpsRestant, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Numéro de table" Tag="NumTable" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding NumTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+                            
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Zones" Tag="Zones" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Name="cmbZones" SelectedItem="{Binding Zones, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeZones}}" Width="300">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Décor choisit" Tag="ChoixDuDecor" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Name="cmbDecor" SelectedItem="{Binding Decor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeDecor}}" Width="300">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Menu choisit" Tag="ChoixDuMenu" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <ComboBox Name="cmbMenu" SelectedItem="{Binding Menu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeTypePlat}}" Width="300">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Adresse" Tag="Adresse" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Adresse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Téléphone" Tag="Telephone" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding NumeroTelephone, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}" Style="{StaticResource txtInError}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="E-mail" Tag="Email" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}" Style="{StaticResource txtInError}" Width="200"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                            <GridViewColumn>
+                                <GridViewColumnHeader Content="Parking" Tag="Parking" Click="OnClick"/>
+                                <GridViewColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <TextBox Text="{Binding Parking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                    </DataTemplate>
+                                </GridViewColumn.CellTemplate>
+                            </GridViewColumn>
+
+
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Grid>
+        </GroupBox>
+    </Grid>
+</Page>

@@ -12,12 +12,27 @@ namespace BibliRestaurant
         [Description("Près Des Toilettes")]
         PrèsDesToillettes,
         Mezzanine,
-        [Description("Près Du Bar")] 
+        [Description("Près Du Bar")]
         PrèsDuBar,
-        [Description("Près De La Sortie")] 
+        [Description("Près De La Sortie")]
         PrèsDeLaSortie
     }
-
+    public enum TypePlat
+    {
+        Africain,
+        Européen,
+        Asiatique,
+        Américain,
+        Variété
+    }
+    public enum Décor
+    {
+        Africain,
+        Européen,
+        Asiatique,
+        Américain,
+        Variété
+    }
     public static class EnumExtensions
     {
         public static string GetDescription(this Enum enumValue) =>

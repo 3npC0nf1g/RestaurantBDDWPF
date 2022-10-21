@@ -6,6 +6,7 @@ using System.Text;
 
 namespace BibliRestaurant
 {
+
     public class BDDSingleton
     {
         //Champ/Objet unique et accessible globalement permettant d'accéder à la base de données et ses fonctionnalités.
@@ -55,6 +56,11 @@ namespace BibliRestaurant
             Reservations = new ReadOnlyObservableCollection<Reservation>(BDD?.Reservations.Local.ToObservableCollection());
         }
         public void SauvegarderModifications() { BDD?.SaveChanges(); }
+
+        public object AjouterReservation(string v1, string v2)
+        {
+            throw new NotImplementedException();
+        }
         #endregion
     }
 }

@@ -1,58 +1,54 @@
 ﻿
 using System;
 
-namespace BibliRestaurant 
+namespace BibliRestaurant
 {
-    public class Reservation
+    public class Reservation : IComparable, IComparable<Reservation>
     {
 
-        /// Champ statique en lecture seule (readonly) avec valeur par défaut.
-        /// Assimilable à une constante.
-        /// Le champ est marqué comme statique (static) et n'existe donc qu'une seule fois en mémoire (et non une fois par objet).
-        /// Un champ statique s'appelle directement depuis le nom de la classe, ici : Personne.NombreFeticheMIN par exemple.
-        /// </summary>
-        ///  public DateTime DateHeure { get; set; }
-        public static readonly DateTime DateReservationMIN = DateTime.Now;
-         public static readonly byte NombreFeticheMIN = 1;
-         public static readonly byte NombreFeticheMAX = 99;
+       
+        public static readonly DateTime DateReservationMAX = DateTime.Today.AddYears(1);
+        public static readonly byte NuméroTableMIN = 1;
+        public static readonly byte NuméroTableMAX = 50;
         public static readonly byte NumeroTelephoneLongueurMIN = 11;
+        public static readonly byte PlaceParkingMIN = 1;
+        public static readonly byte PlaceParkingMAX = 30;
+        public static readonly byte NombrePersonnesMIN = 1;
+        public static readonly byte NombrePersonnesMAX = 8;
+
 
         #region Propriétés automatiques
-        //Il y a à chaque fois un champ (créé automatiquement et caché) en interaction derrière la propriété.
-        /* Equivalent de (version non automatique) :
-            private string _nom = "";
-            public string Nom{
-                get { return _nom; }
-                set { _nom = value; }
-            }
-        */
        
 
         public string NomPrenom { get; set; }
-        public byte NombrePersonnes { get; set; }
-        public Zones Zone { get; set; }
+
+        public Zones ZoneRestaurant { get; set; }
+        public TypePlat TypeDeMenu { get; set; }
+        public Décor ChoixDuDécor { get; set; }
         #endregion
 
         #region Propriétés
-        //Propriété en accès complet et son champ d'arrière-plan avec restriction à une plage de valeurs définie
-        private DateTime _dateReservation = DateTime.Now;
-        public DateTime DateReservation {
+        
+        private DateTime _dateReservation = DateTime.Today.AddDays(1);
+        public DateTime DateReservation
+        {
             get => _dateReservation;
 
             set
             {
-                if (value < DateTime.Now) { value = DateTime.Now; }
-                else if (value > DateReservationMIN) { value = DateReservationMIN; }
+                if (value < DateTime.Today.AddDays(1)) { value = DateTime.Today.AddDays(1); }
+                else if (value > DateReservationMAX) { value = DateReservationMAX; }
                 _dateReservation = value;
             }
         }
 
-        //Propriété en accès complet et son champ d'arrière-plan avec contrôles de saisie (générant exceptions).
+       
         private string _email = string.Empty;
         public string Email
         {
             get => _email;
             set
+
             {
                 if (value == null || value == string.Empty) { throw new ArgumentNullException("L'email ne peut pas être une valeur vide !"); }
                 if (!value.Contains("@")) { throw new ArgumentException("L'email doit contenir au moins un @ !"); }
@@ -60,20 +56,53 @@ namespace BibliRestaurant
             }
         }
 
-        //Propriété en accès complet et son champ d'arrière-plan avec contrôles de saisie (générant exceptions).
-         private byte _nombreFetiche = NombreFeticheMIN;
-        public byte NombreFetiche
+        private string _adresse = string.Empty;
+        public string Adresse
         {
-            get => _nombreFetiche;
+            get => _adresse;
             set
-            {
-                if (value < NombreFeticheMIN || value > NombreFeticheMAX) { throw new ArgumentException($"Le nombre fétiche doit être compris entre {NombreFeticheMIN} et {NombreFeticheMAX}."); }
 
-                _nombreFetiche = value;
+            {
+                if (value == null || value == string.Empty) { throw new ArgumentNullException("L'adresse ne peut pas être une valeur vide !"); }
+                if (!value.Contains("BP")) { throw new ArgumentException("L'adresse doit contenir un BP !"); }
+                _adresse = value;
             }
         }
+       
+        private byte _numéroTable = NuméroTableMIN;
+        public byte NuméroTable
+        {
+            get => _numéroTable;
+            set
+            {
+                if (value < NuméroTableMIN || value > NuméroTableMAX) { throw new ArgumentException($"Le numéro de table doit être compris entre {NuméroTableMIN} et {NuméroTableMAX}."); }
 
-        //Propriété en accès complet et son champ d'arrière-plan avec contrôles de saisie (générant exceptions).
+                _numéroTable = value;
+            }
+        }
+        private byte _placeparking = PlaceParkingMIN;
+        public byte PlaceParking
+        {
+            get => _placeparking;
+            set
+            {
+                if (value < PlaceParkingMIN || value > PlaceParkingMAX) { throw new ArgumentException($"La place doit être comprise entre {PlaceParkingMIN} et {PlaceParkingMAX}."); }
+
+                _placeparking = value;
+            }
+        }
+        private byte _nombrepersonnes = NombrePersonnesMIN;
+        public byte NombrePersonnes
+        {
+            get => _nombrepersonnes;
+            set
+            {
+                if (value < NombrePersonnesMIN || value > NombrePersonnesMAX) { throw new ArgumentException($"Le numéro de personne doit être compris entre {NombrePersonnesMIN} et {NombrePersonnesMAX}."); }
+
+                _nombrepersonnes = value;
+            }
+        }
+        
         private string _numeroTelephone = string.Empty;
         public string NumeroTelephone
         {
@@ -87,33 +116,49 @@ namespace BibliRestaurant
             }
         }
 
-        //Propriétés en lecture seule avec écriture simplifiée.
-        //Equivalent de :
-        /*public string NomComplet{
-            get { return $"{Nom} {Prenom}"; }
-        }*/
-      
-
-        //L'information est juste calculée et non stockée donc le type int ne pose pa de problème (au lieu de byte)
-        // public int TpsRestant => DateTime.Now.Year - DateNaissance.Year - (DateTime.Now.Month < DateNaissance.Month ? 1 : 0) - (DateTime.Now.Month == DateNaissance.Month && DateTime.Now.Day < DateNaissance.Day ? 1 : 0);
         #endregion
-        public int TpsRestant => DateReservation.Year - DateTime.Now.Year - (DateReservation.Month < DateTime.Now.Month ? 1 : 0) - (DateTime.Now.Month == DateReservation.Month && DateReservation.Day < DateTime.Now.Day ? 1 : 0);
+      
+        public int TpsRestant => (((DateReservation.Year - DateTime.Now.Year) * 365) + ((DateReservation.Month - DateTime.Now.Month) * 30) + (DateReservation.Day - DateTime.Now.Day));
+
+       
+
 
 
         #region Propriétés Details et Resume de l'objet et réécriturre de la méthode ToString()
-        //Propriété statique utilisée dans une application console comme entête pour l'affichage des données des personnes.
-        public static string DetailsEntetes{
-            get{
-                string Resultat = $"\n|{"Nom et prénom",-22}|{"Nombre ",-5}|{"Date du RDV",-15}|{"Temps restant",-5} |{"Zone ",-20} |{"Téléphone",-15}|{"E-mail",-30}|{"Nombre fétiche",-14}|\n";
+       
+        public static string DetailsEntetes
+        {
+            get
+            {
+                string Resultat = $"\n|{"Nom et prénom",-22}|{"Nombre ",-7}|{"Date et Heure",-16}|{"Jours restants",-16} |{"Numéro de table",-15}|{"Zone ",-20}|{"Décor choisit",-15}|{"Menu choisit",-15}|{"Adresse",-32}|{"Téléphone",-15}|{"E-mail",-30}|{"parking",-7}|\n";
                 Resultat = Resultat.PadRight(2 * Resultat.Length - 2, '-');
                 return Resultat;
             }
         }
-        public string Details => $"|{NomPrenom,-22}|{NombrePersonnes,-5}|{DateReservation,-15:dd-MM-yyyy}|{TpsRestant,-5}|{Zone.GetDescription(),-20}|{NumeroTelephone,-15}|{Email,-30}|{NombreFetiche,-14}|";
-        public string Resume => $"{NomPrenom}{NombrePersonnes}{DateReservation}({Zone.GetDescription()})";
-        public override string ToString() => Details; //Réécriture (override) de la méthode ToString de conversion d'un objet en chaine de caractères.
+        public string Details => $"|{NomPrenom,-22}|{NombrePersonnes,-7}|{DateReservation,-14:dd/MM/yyyy HH:mm}|{TpsRestant,-17}|{NuméroTable,-15}|{ZoneRestaurant.GetDescription(),-20}|{ChoixDuDécor,-15}|{TypeDeMenu,-15}|{Adresse,-32}|{NumeroTelephone,-15}|{Email,-30}|{PlaceParking,-7}|";
+        public string Resume => $"{NomPrenom}{NombrePersonnes}{DateReservation}({ZoneRestaurant.GetDescription()})";
+        public override string ToString() => Details; 
         #endregion
 
+
+        #region Implémentation de l'interface IComparable
+        
+        /// <param name="other">Autre objet personne qui sera comparé</param>
+       
+        public int CompareTo(Reservation other)
+        {
+            if (other == null) { return 1; }
+            else if (this.ZoneRestaurant > other.ZoneRestaurant) { return 1; }
+            else if (this.ZoneRestaurant < other.ZoneRestaurant) { return -1; }
+            else
+            {
+                if (this.NombrePersonnes > other.NombrePersonnes) { return 1; }
+                else if (this.NombrePersonnes < other.NombrePersonnes) { return -1; }
+                else { return this.TpsRestant.CompareTo(other.TpsRestant); }
+            }
+        }
+        public int CompareTo(object obj) => CompareTo(obj as Reservation);
+        #endregion
 
         #region Ajout d'un identifiant pour le projet Entity Framework Core
         public int ID { get; set; }

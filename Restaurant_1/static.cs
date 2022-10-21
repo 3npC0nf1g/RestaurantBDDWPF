@@ -7,19 +7,8 @@ namespace InterfaceConsole
 {
     public static class Lire
     {
-        public static bool UnBooleen(string message, string messageErreur, string vrai, string faux)
-        {
-            Console.WriteLine($"{message} ({vrai}/{faux}):");
-            string Resultat = Console.ReadLine();
 
-            while (Resultat != vrai && Resultat != faux)
-            {
-                Console.WriteLine($"{messageErreur} ({vrai}/{faux}):");
-                Resultat = Console.ReadLine();
-            }
 
-            return Resultat == vrai;
-        }
         public static byte UnByte(string message, byte min = byte.MinValue, byte max = byte.MaxValue, bool separation = false)
         {
             byte Resultat = byte.MinValue;
@@ -57,6 +46,7 @@ namespace InterfaceConsole
                 Console.WriteLine("Valeur erronnée, veuillez recommencer :");
             }
 
+
             return Resultat;
         }
         public static string UnString(string message)
@@ -73,10 +63,7 @@ namespace InterfaceConsole
             return Resultat;
         }
 
-        /// <summary>
-        /// Méthode qui encapsule les méthodes marquées 'PRIVATE' dans d'autres qui sont public afin de les protéger des exceptions générées.
-        /// si exception, le texte de celle-ci est affiché dans la console.
-        /// </summary>
+        
         /// <param name="action"></param>
         public static void WhileTryCatch(Action action)
         {
