@@ -29,11 +29,11 @@ namespace WpfInterface
           
             _bdd.ChargerDonnees();
 
-         
+            Cadre.NavigationService.Navigate(new PgReservations());
         }
 
         #region Méthodes liées au Menu du haut de la fenêtre
-     //   private void AfficherVueDeuxVolets(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgPersonnes2Volets()); }
+        private void AfficherVueDeuxVolets(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new pgReservations2Volets()); }
         private void AfficherVueListView(object sender, RoutedEventArgs e) { Cadre.NavigationService.Navigate(new PgReservations()); }
         private void ChargerBaseDeDonnees(object sender, RoutedEventArgs e)
         {
@@ -76,9 +76,9 @@ namespace WpfInterface
         {
             if (_bdd.ModificationsEnAttente)
             {
-                if (MessageBox.Show("Il y a des modifications en attente voulez vous les sauvegarder avant de quitter ?", "Application POOGestionPersonnes", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
+                if (MessageBox.Show("Il y a des modifications en attente voulez vous les sauvegarder avant de quitter ?", "Application POOGestionReservations", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.No)
                 {
-                    if (MessageBox.Show("La fermeture de l'application va entrainer la perte des modifications non sauvegardées dans la base de données. Etes-vous sûr de vouloir fermer l'application?", "Application POOGestionPersonnes", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
+                    if (MessageBox.Show("La fermeture de l'application va entrainer la perte des modifications non sauvegardées dans la base de données. Etes-vous sûr de vouloir fermer l'application?", "Application POOGestionReservations", MessageBoxButton.YesNo, MessageBoxImage.Warning) == MessageBoxResult.No)
                     {
                         e.Cancel = true;
                     }

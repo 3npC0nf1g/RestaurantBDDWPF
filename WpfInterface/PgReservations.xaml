@@ -85,7 +85,7 @@
                                 <GridViewColumnHeader Content="Nom et Prénom" Tag="NomPrenom" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding NomPrenom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                        <TextBox Text="{Binding NomPrenom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="150"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -135,7 +135,7 @@
                                 <GridViewColumnHeader Content="Zones" Tag="Zones" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Name="cmbZones" SelectedItem="{Binding Zones, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeZones}}" Width="300">
+                                        <ComboBox Name="cmbZones" SelectedItem="{Binding Zones, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeZones}}" Width="200">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
@@ -151,7 +151,7 @@
                                 <GridViewColumnHeader Content="Décor choisit" Tag="ChoixDuDecor" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Name="cmbDecor" SelectedItem="{Binding Decor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeDecor}}" Width="300">
+                                        <ComboBox Name="cmbDecor" SelectedItem="{Binding Decor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeDecor}}" Width="100">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
@@ -167,7 +167,7 @@
                                 <GridViewColumnHeader Content="Menu choisit" Tag="ChoixDuMenu" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Name="cmbMenu" SelectedItem="{Binding Menu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeTypePlat}}" Width="300">
+                                        <ComboBox Name="cmbMenu" SelectedItem="{Binding Menu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeTypePlat}}" Width="100">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
@@ -183,7 +183,7 @@
                                 <GridViewColumnHeader Content="Adresse" Tag="Adresse" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Adresse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="300"/>
+                                        <TextBox Text="{Binding Adresse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="200"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

@@ -20,7 +20,7 @@
                 <MenuItem Header="Quitter"                      Click="Quitter"/>
             </MenuItem>
             <MenuItem Header="Vues">
-             <!--   <MenuItem Header="Deux volets"            Click="AfficherVueDeuxVolets"/> -->
+                <MenuItem Header="Deux volets"            Click="AfficherVueDeuxVolets"/>
                 <MenuItem Header="ListView"               Click="AfficherVueListView" />
             </MenuItem>
         </Menu>

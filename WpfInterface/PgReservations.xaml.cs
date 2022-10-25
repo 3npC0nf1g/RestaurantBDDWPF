@@ -42,7 +42,7 @@ namespace WpfInterface
             Reservation selection = (Reservation)lvReservations.SelectedItem;
             if (selection != null)
             {
-                if (MessageBox.Show($"Etes-vous sur de vouloir supprimer la personne {selection.NomPrenom} de la liste ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+                if (MessageBox.Show($"Etes-vous sur de vouloir supprimer la Reservation {selection.NomPrenom} de la liste ?", "Confirmation", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
                 {
                     Statics.TryCatch(() => { _bdd.SupprimerReservation(selection); }, nameof(SupprimerReservation));
                 }

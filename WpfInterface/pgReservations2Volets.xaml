@@ -3,15 +3,12 @@
       xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+      xmlns:local="clr-namespace:WpfInterface"
        xmlns:ref="clr-namespace:BibliRestaurant;assembly=BibliRestaurant"
       xmlns:sys="clr-namespace:System;assembly=System.Runtime"
-      xmlns:local="clr-namespace:WpfInterface"
       mc:Ignorable="d" 
-      d:DesignHeight="450" d:DesignWidth="800"
+      d:DesignHeight="450" d:DesignWidth="1000"
       Title="pgReservations2Volets">
-
-
-
 
     <Page.Resources>
         <ObjectDataProvider x:Key="listeZones" MethodName="GetValues" ObjectType="{x:Type sys:Enum}">
@@ -56,9 +53,9 @@
         </Grid.ColumnDefinitions>
 
 
-        <GroupBox Name="grpListeReservations" Header="Liste des reservations" Margin="5">
+        <GroupBox x:Name="grpListeReservations" Header="Liste des reservations"  Margin="5,0,5,5">
             <Grid>
-                <ListBox  Name="lvReservations" ItemsSource="{Binding}" SelectionMode="Single" Margin="1">
+                <ListBox x:Name="lstReservations" ItemsSource="{Binding}"  SelectionChanged="lstReservations_SelectionChanged" DisplayMemberPath="Resume" Margin="3">
                     <ListBox.Resources>
                         <ContextMenu x:Key="ctxOnItem">
                             <MenuItem Header="Supprimer la reservation sélectionnée" Click="SupprimerReservation"/>
@@ -73,7 +70,7 @@
                         </ContextMenu>
                     </ListBox.Resources>
                     <ListBox.ItemContainerStyle>
-                        <Style TargetType="{x:Type ListViewItem}">
+                        <Style TargetType="{x:Type ListBoxItem}">
                             <Setter Property="ContextMenu" Value="{StaticResource ctxOnItem}"/>
                         </Style>
                     </ListBox.ItemContainerStyle>
@@ -138,7 +135,7 @@
                 <TextBox        Text="{Binding NomPrenom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                       Grid.Column="2" Grid.Row="1"  Margin="3" TextWrapping="Wrap"/>
                 <TextBox Text="{Binding NombrePersonne, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"   Grid.Column="2" Grid.Row="2"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
                 <DatePicker     SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"           Grid.Column="2" Grid.Row="3"  Margin="3" />
-                <TextBox Text="{Binding TpsRestant, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"       Grid.Column="2" Grid.Row="4"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
+             <!--   <TextBox Text="{Binding TpsRestant, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"       Grid.Column="2" Grid.Row="4"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/> -->
                 <TextBox Text="{Binding NumeroTable, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"      Grid.Column="2" Grid.Row="5"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
                 <ComboBox       SelectedItem="{Binding Zone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"              
                                 ItemsSource="{Binding Source={StaticResource listeZones}}"                                         Grid.Column="2" Grid.Row="6"  Margin="3">
@@ -168,8 +165,6 @@
                 <TextBox Text="{Binding NumeroTelephone, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}" Grid.Column="2" Grid.Row="10" Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
                 <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"           Grid.Column="2" Grid.Row="11" Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
                 <TextBox        Text="{Binding PlaceDeParking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                      Grid.Column="2" Grid.Row="12" Margin="3" TextWrapping="Wrap"/>
-
-
 
             </Grid>
         </GroupBox>
