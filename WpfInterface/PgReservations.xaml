@@ -53,7 +53,7 @@
                             <MenuItem Header="Ajouter une réservation" Click="AjouterReservation"/>
                             <MenuItem Header="Afficher...">
                                 <MenuItem Header="Toutes les données" Click="OnFiltrerAucunFiltre"/>
-                                <MenuItem Header="les réservations avec plus de 2 personnes"  Click="OnFiltrerPlusDe2Personnes"/>
+                                <MenuItem Header="les réservations avec plus de 4 personnes"  Click="OnFiltrerPlusDe4Personnes"/>
                                 <MenuItem Header="les réservations par zones" Click="OnFiltrerParZoneTerasse"/>
                                 <MenuItem Header="les réservations pour les plats africains" Click="OnFiltrerParTypeDePlatAfricain"/>
                                <!-- <MenuItem Header="les réservations du mois à venir"  Click="OnFiltrerLeMoisSuivant"/> -->
@@ -70,7 +70,7 @@
                             <MenuItem Header="Ajouter une réservation" Click="AjouterReservation"/>
                             <MenuItem Header="Afficher...">
                                 <MenuItem Header="Toutes les données" Click="OnFiltrerAucunFiltre"/>
-                                <MenuItem Header="les réservations avec plus de 2 personnes"  Click="OnFiltrerPlusDe2Personnes"/>
+                                <MenuItem Header="les réservations avec plus de 4 personnes"  Click="OnFiltrerPlusDe4Personnes"/>
                                 <MenuItem Header="les réservations pour la térasse" Click="OnFiltrerParZoneTerasse"/>
                                 <MenuItem Header="les réservations pour les plats africains" Click="OnFiltrerParTypeDePlatAfricain"/>
                               <!--  <MenuItem Header="les réservations du mois à venir"  Click="OnFiltrerLeMoisSuivant"/> -->
@@ -95,7 +95,7 @@
                                 <GridViewColumnHeader Content="Nombre" Tag="Nombre" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Nombre, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                        <TextBox Text="{Binding NombrePersonnes, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -105,7 +105,7 @@
                                 <GridViewColumnHeader Content="Date et heure" Tag="DateNaissance" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <DatePicker SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
+                                        <DatePicker SelectedDate="{Binding DateReservation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="120"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -125,7 +125,7 @@
                                 <GridViewColumnHeader Content="Numéro de table" Tag="NumTable" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding NumTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                        <TextBox Text="{Binding NuméroTable, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>
@@ -135,7 +135,7 @@
                                 <GridViewColumnHeader Content="Zones" Tag="Zones" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Name="cmbZones" SelectedItem="{Binding Zones, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeZones}}" Width="200">
+                                        <ComboBox Name="cmbZones" SelectedItem="{Binding ZoneRestaurant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeZones}}" Width="200">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
@@ -151,7 +151,7 @@
                                 <GridViewColumnHeader Content="Décor choisit" Tag="ChoixDuDecor" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Name="cmbDecor" SelectedItem="{Binding Decor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeDecor}}" Width="100">
+                                        <ComboBox Name="cmbDecor" SelectedItem="{Binding ChoixDuDécor, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeDecor}}" Width="100">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
@@ -167,7 +167,7 @@
                                 <GridViewColumnHeader Content="Menu choisit" Tag="ChoixDuMenu" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <ComboBox Name="cmbMenu" SelectedItem="{Binding Menu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeTypePlat}}" Width="100">
+                                        <ComboBox Name="cmbMenu" SelectedItem="{Binding TypeDeMenu, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" ItemsSource="{Binding Source={StaticResource listeTypePlat}}" Width="100">
                                             <ComboBox.ItemTemplate>
                                                 <DataTemplate>
                                                     <TextBlock Text="{Binding Converter={StaticResource objEnumConverter}}" />
@@ -213,7 +213,7 @@
                                 <GridViewColumnHeader Content="Parking" Tag="Parking" Click="OnClick"/>
                                 <GridViewColumn.CellTemplate>
                                     <DataTemplate>
-                                        <TextBox Text="{Binding Parking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
+                                        <TextBox Text="{Binding PlaceParking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Width="100"/>
                                     </DataTemplate>
                                 </GridViewColumn.CellTemplate>
                             </GridViewColumn>

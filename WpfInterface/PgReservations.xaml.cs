@@ -79,9 +79,9 @@ namespace WpfInterface
         {
             _listeReservations.Filter = null;
         }
-        private void OnFiltrerPlusDe2Personnes(object sender, RoutedEventArgs args)
+        private void OnFiltrerPlusDe4Personnes(object sender, RoutedEventArgs args)
         {
-            _listeReservations.Filter = (obj => { return (obj as Reservation).NombrePersonnes >= 2 ; });
+            _listeReservations.Filter = (obj => { return (obj as Reservation).NombrePersonnes >= 4 ; });
         }
         private void OnFiltrerParZoneTerasse(object sender, RoutedEventArgs args)
         {

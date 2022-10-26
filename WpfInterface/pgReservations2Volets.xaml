@@ -62,7 +62,7 @@
                             <MenuItem Header="Ajouter une réservation" Click="AjouterReservation"/>
                             <MenuItem Header="Afficher...">
                                 <MenuItem Header="Toutes les données" Click="OnFiltrerAucunFiltre"/>
-                                <MenuItem Header="les réservations avec plus de 2 personnes"  Click="OnFiltrerPlusDe2Personnes"/>
+                                <MenuItem Header="les réservations avec plus de 4 personnes"  Click="OnFiltrerPlusDe4Personnes"/>
                                 <MenuItem Header="les réservations par zones" Click="OnFiltrerParZoneTerasse"/>
                                 <MenuItem Header="les réservations pour les plats africains" Click="OnFiltrerParTypeDePlatAfricain"/>
                                 <!-- <MenuItem Header="les réservations du mois à venir"  Click="OnFiltrerLeMoisSuivant"/> -->
@@ -82,7 +82,7 @@
                             <MenuItem Header="Ajouter une réservation" Click="AjouterReservation"/>
                             <MenuItem Header="Afficher...">
                                 <MenuItem Header="Toutes les données" Click="OnFiltrerAucunFiltre"/>
-                                <MenuItem Header="les réservations avec plus de 2 personnes"  Click="OnFiltrerPlusDe2Personnes"/>
+                                <MenuItem Header="les réservations avec plus de 4 personnes"  Click="OnFiltrerPlusDe4Personnes"/>
                                 <MenuItem Header="les réservations pour la térasse" Click="OnFiltrerParZoneTerasse"/>
                                 <MenuItem Header="les réservations pour les plats africains" Click="OnFiltrerParTypeDePlatAfricain"/>
                                 <!--  <MenuItem Header="les réservations du mois à venir"  Click="OnFiltrerLeMoisSuivant"/> -->
@@ -133,11 +133,11 @@
 
 
                 <TextBox        Text="{Binding NomPrenom, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                       Grid.Column="2" Grid.Row="1"  Margin="3" TextWrapping="Wrap"/>
-                <TextBox Text="{Binding NombrePersonne, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"   Grid.Column="2" Grid.Row="2"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
-                <DatePicker     SelectedDate="{Binding DateNaissance, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"           Grid.Column="2" Grid.Row="3"  Margin="3" />
-             <!--   <TextBox Text="{Binding TpsRestant, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"       Grid.Column="2" Grid.Row="4"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/> -->
-                <TextBox Text="{Binding NumeroTable, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"      Grid.Column="2" Grid.Row="5"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
-                <ComboBox       SelectedItem="{Binding Zone, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"              
+                <TextBox Text="{Binding NombrePersonnes, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"   Grid.Column="2" Grid.Row="2"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
+                <DatePicker     SelectedDate="{Binding DateReservation, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"           Grid.Column="2" Grid.Row="3"  Margin="3" />
+                <TextBox Text="{Binding TpsRestant, Mode= OneWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"       Grid.Column="2" Grid.Row="4"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/> 
+                <TextBox Text="{Binding NuméroTable, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"      Grid.Column="2" Grid.Row="5"  Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
+                <ComboBox       SelectedItem="{Binding ZoneRestaurant, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"              
                                 ItemsSource="{Binding Source={StaticResource listeZones}}"                                         Grid.Column="2" Grid.Row="6"  Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -145,7 +145,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <ComboBox       SelectedItem="{Binding Decor , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"             
+                <ComboBox       SelectedItem="{Binding ChoixDuDécor , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"             
                                 ItemsSource="{Binding Source={StaticResource listeDecor}}"                                         Grid.Column="2"   Grid.Row="7"  Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -153,7 +153,7 @@
                         </DataTemplate>
                     </ComboBox.ItemTemplate>
                 </ComboBox>
-                <ComboBox       SelectedItem="{Binding TypePlat, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"             
+                <ComboBox       SelectedItem="{Binding TypeDeMenu , Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"             
                                 ItemsSource="{Binding Source={StaticResource listeTypePlat}}"                                      Grid.Column="2"   Grid.Row="8"  Margin="3">
                     <ComboBox.ItemTemplate>
                         <DataTemplate>
@@ -164,7 +164,7 @@
                 <TextBox        Text="{Binding Adresse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                        Grid.Column="2" Grid.Row="9"  Margin="3" TextWrapping="Wrap"/>
                 <TextBox Text="{Binding NumeroTelephone, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}" Grid.Column="2" Grid.Row="10" Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
                 <TextBox Text="{Binding Email, Mode=TwoWay, UpdateSourceTrigger=LostFocus, ValidatesOnExceptions=True}"           Grid.Column="2" Grid.Row="11" Margin="3" TextWrapping="Wrap" Style="{StaticResource txtInError}"/>
-                <TextBox        Text="{Binding PlaceDeParking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                      Grid.Column="2" Grid.Row="12" Margin="3" TextWrapping="Wrap"/>
+                <TextBox        Text="{Binding PlaceParking, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"                      Grid.Column="2" Grid.Row="12" Margin="3" TextWrapping="Wrap"/>
 
             </Grid>
         </GroupBox>
