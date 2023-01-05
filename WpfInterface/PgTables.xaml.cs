@@ -16,11 +16,11 @@ using System.Windows.Shapes;
 namespace BibliWPF
 {
     /// <summary>
-    /// Logique d'interaction pour pgReservations.xaml
+    /// Logique d'interaction pour PgTables.xaml
     /// </summary>
-    public partial class pgReservations : Page
+    public partial class PgTables : Page
     {
-        public pgReservations()
+        public PgTables()
         {
             InitializeComponent();
         }
